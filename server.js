@@ -23,7 +23,7 @@ connectDB();
 
 app.use(
    cors({
-      origin: "https://smart-contract-analyzer-frontend.vercel.app/",
+      origin: "https://smart-contract-analyzer-frontend.vercel.app",
    }),
 );
 
