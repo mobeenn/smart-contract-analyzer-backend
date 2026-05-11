@@ -22,6 +22,9 @@ const userSchema = new mongoose.Schema(
          type: Number,
          default: 100,
       },
+      signupIP: {
+         type: String,
+      },
    },
    {
       timestamps: true,

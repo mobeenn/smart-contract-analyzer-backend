@@ -28,6 +28,22 @@ router.post("/signup", async (req, res) => {
          });
       }
 
+      // get user IP address
+      const userIP =
+         req.headers["x-forwarded-for"]?.split(",")[0] ||
+         req.socket.remoteAddress ||
+         req.ip;
+      console.log("User signup IP:", userIP);
+      // Check if IP already used
+      const existingIPUser = await User.findOne({
+         signupIP: userIP,
+      });
+      if (existingIPUser) {
+         return res.status(403).json({
+            error: "Only one account allowed per IP address",
+         });
+      }
+
       const hashedPassword = await bcrypt.hash(password, 10);
 
       const user = await User.create({
@@ -35,6 +51,7 @@ router.post("/signup", async (req, res) => {
          email,
          password: hashedPassword,
          credits: 100,
+         signupIP: userIP,
       });
 
       const token = jwt.sign(
