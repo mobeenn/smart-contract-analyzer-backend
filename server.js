@@ -6,9 +6,14 @@ require("dotenv").config();
 const connectDB = require("./config/db");
 // import dns from 'node:dns';
 
+//remove db error (MongoDB Error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.rhrkcga.mongodb.net)
 const dns = require("dns");
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
+
 const app = express();
+
+//for if behind a proxy
+app.set("trust proxy", true);
 
 const PORT = process.env.PORT || 3000;
 
@@ -24,7 +29,7 @@ connectDB();
 
 app.use(
    cors({
-      origin: "https://smart-contract-analyzer-frontend.vercel.app",
+      origin: "https://smart-contract-analyzer-frontend.vercel.app/",
    }),
 );
 
