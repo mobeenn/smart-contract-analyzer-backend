@@ -38,7 +38,7 @@ router.post("/", auth, async (req, res) => {
       if (user.credits < 20) {
          return res.status(403).json({
             error: "Your free trial credits are finished. Contact support to increase your limit.",
-            contactEmail: "support@smartauditai.com",
+            contactEmail: "mobeen0616@gmail.com",
          });
       }
 
